@@ -12,4 +12,5 @@ mainClass in assembly := Some("com.example.Main")
 
 libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-core" % "1.1.0",
-  "org.apache.spark" %% "spark-sql" % "1.1.0")
+  "org.apache.spark" %% "spark-sql" % "1.1.0",
+  "org.apache.spark" %% "spark-hive" % "1.1.0")
