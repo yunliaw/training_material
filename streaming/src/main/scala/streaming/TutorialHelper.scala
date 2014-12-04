@@ -1,3 +1,5 @@
+package streaming
+
 import org.apache.spark.streaming._
 import org.apache.spark.storage.StorageLevel
 import scala.io.Source

@@ -1,9 +1,4 @@
-import org.apache.spark._
-import org.apache.spark.SparkContext._
-import org.apache.spark.streaming._
-import org.apache.spark.streaming.twitter._
-import org.apache.spark.streaming.StreamingContext._
-import TutorialHelper._
+package streaming
 
 object Tutorial {
   def main(args: Array[String]) {
