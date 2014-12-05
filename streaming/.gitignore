@@ -3,6 +3,9 @@
 *.idea
 .idea/
 
+# checkpoints
+checkpoints/
+
 # Package Files #
 *.war
 *.ear
