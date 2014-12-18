@@ -1,10 +1,13 @@
 import AssemblyKeys._ // put this at the top of the file
 
-name := "Tutorial"
+name := "twitter_classfier"
 
 scalaVersion := "2.10.3"
 
 libraryDependencies ++= Seq(
+  "org.apache.spark" %% "spark-core" % "1.1.1" % "provided",
+  "org.apache.spark" %% "spark-sql" % "1.1.1",
+  "org.apache.spark" %% "spark-mllib" % "1.1.1",
   "org.apache.spark" %% "spark-streaming" % "1.1.1" % "provided",
   "org.apache.spark" %% "spark-streaming-twitter" % "1.1.1",
   "com.google.code.gson" % "gson" % "2.3",
