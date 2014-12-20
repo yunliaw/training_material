@@ -17,10 +17,10 @@ object Predict {
     Logger.getLogger("org.eclipse.jetty.server").setLevel(Level.OFF)
 
     // Configure Twitter credentials
-    val apiKey = "umhLxAaxpcfQrAksVfwl8rcKw"
-    val apiSecret = "yAD1GZecWpFWGSd0kehGMweToRDNAW1xaGsHzi3bObMagLkyFu"
-    val accessToken = "22887707-Sc0SMMJNd7EggYCXMyq4OfQl5V1ZdCCHSX2UR4BtV"
-    val accessTokenSecret = "SbHsQou18OVzYlFrDUbaBdohJtzwPxCAL6ZCsOw"
+    val apiKey = ""
+    val apiSecret = ""
+    val accessToken = ""
+    val accessTokenSecret = ""
     TutorialHelper.configureTwitterCredentials(apiKey, apiSecret, accessToken, accessTokenSecret)
 
     val modelFile = "/tmp/tweets/model"
