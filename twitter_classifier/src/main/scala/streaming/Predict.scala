@@ -24,7 +24,7 @@ object Predict {
     TutorialHelper.configureTwitterCredentials(apiKey, apiSecret, accessToken, accessTokenSecret)
 
     val modelFile = "/tmp/tweets/model"
-    val clusterNumber = 1
+    val clusterNumber = 2
 
     val conf = new SparkConf().setMaster("local[2]").setAppName("Predict")
     val ssc = new StreamingContext(conf, Seconds(5))

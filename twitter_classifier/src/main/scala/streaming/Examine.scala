@@ -18,7 +18,7 @@ object Examine {
 
     val tweetInput = "/tmp/tweets/tweets*/part-*"
     val outputModelDir = "/tmp/tweets/model"
-    val numClusters = 10
+    val numClusters = 12
     val numIterations = 20
 
     val conf = new SparkConf().setMaster("local[2]").setAppName("Examine")
@@ -34,13 +34,13 @@ object Examine {
 
     val tweetTable = sqlContext.jsonFile(tweetInput).cache()
     tweetTable.registerTempTable("tweetTable")
-//
+
 //    println("------Tweet table Schema---")
 //    tweetTable.printSchema()
-//
+
 //    println("----Sample Tweet Text-----")
 //    sqlContext.sql("SELECT text FROM tweetTable LIMIT 10").collect().foreach(println)
-//
+
 //    println("------Sample Lang, Name, text---")
 //    sqlContext.sql("SELECT user.lang, user.name, text FROM tweetTable LIMIT 10").collect().foreach(println)
 //
@@ -62,15 +62,15 @@ object Examine {
     //sc.makeRDD(model.clusterCenters, numClusters).saveAsObjectFile(outputModelDir)
 
 
-//    val some_tweets = texts.take(10)
-//    println("----Example tweets from the clusters")
-//    for (i <- 0 until numClusters) {
-//      println(s"\nCLUSTER $i:")
-//      some_tweets.foreach { t =>
-//        if (model.predict(TutorialHelper.featurize(t)) == i) {
-//          println(t)
-//        }
-//      }
-//    }
+    val some_tweets = texts.take(40)
+    println("----Example tweets from the clusters")
+    for (i <- 0 until numClusters) {
+      println(s"\nCLUSTER $i:")
+      some_tweets.foreach { t =>
+        if (model.predict(TutorialHelper.featurize(t)) == i) {
+          println(t)
+        }
+      }
+    }
   }
 }

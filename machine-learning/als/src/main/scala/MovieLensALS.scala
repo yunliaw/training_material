@@ -29,12 +29,12 @@ object MovieLensALS {
 
     // load personal ratings
 
-    val myRatings = loadRatings("")
+    val myRatings = loadRatings("../personalRatings.txt")
     val myRatingsRDD = sc.parallelize(myRatings, 1)
 
     // load ratings and movie titles
 
-    val movieLensHomeDir = ""
+    val movieLensHomeDir = "../../data"
 
     val ratings = sc.textFile(new File(movieLensHomeDir, "ratings.dat").toString).map { line =>
       val fields = line.split("::")
@@ -49,7 +49,78 @@ object MovieLensALS {
     }.collect().toMap
 
     // your code here
+    val numRatings = ratings.count()
+    val numUsers = ratings.map(_._2).distinct.count()
+    val numMovies = ratings.map(_._2.product).distinct.count()
+    println (s"numRatings: $numRatings")
+    println(s"numUsers: $numUsers")
+    println(s"numMovies: $numMovies")
 
+    val numPartitions = 4
+
+    val training = ratings.filter(x => x._1 < 6)
+      .values.union(myRatingsRDD).repartition(numPartitions).cache()
+    println("training count: " + training.count())
+
+    val validation = ratings.filter(x => x._1 >= 6 && x._1 < 8)
+      .values.repartition(numPartitions).cache()
+    println("validation count: " + validation.count())
+
+    val test = ratings.filter(x => x._1 >= 8).values.cache()
+    println("test count: " + test.count())
+
+
+    val ranks = List(8, 12)
+    val lambdas = List(0.1, 1.0, 10.0)
+    val numIters = List(10, 20)
+
+    var bestModel: Option[MatrixFactorizationModel] = None
+    var bestValidationRmse = Double.MaxValue
+    var bestRank = 0
+    var bestLambda = -1.0
+    var bestNumIter = -1
+
+//    for (rank <- ranks; lambda <- lambdas; numIter <- numIters) {
+//      val model = ALS.train(training,rank,numIter,lambda)
+//      val validationRmse = computeRmse(model, validation, validation.count())
+//      println(s"RMSE (validation) = $validationRmse for model rank = $rank, lambda = $lambda, numIter = $numIter")
+//      if (validationRmse < bestValidationRmse) {
+//        bestModel = Some(model)
+//        bestValidationRmse = validationRmse
+//        bestRank = rank
+//        bestLambda = lambda
+//        bestNumIter = numIter
+//      }
+//    }
+    bestModel = Some(ALS.train(training, 12, 10, 0.1))
+    bestRank = 12
+    bestNumIter = 10
+    bestLambda = 0.1
+    val testRmse = computeRmse(bestModel.get, test, test.count())
+    println(s"RMSE (test) = $testRmse for model rank = $bestRank, lambda = $bestLambda, numIter = $bestNumIter")
+
+
+
+    val meanRating = training.union(validation).map(_.rating).mean
+    val baselineRmse =
+      math.sqrt(test.map(x => (meanRating - x.rating) * (meanRating - x.rating)).mean())
+    val improvement =  (baselineRmse - testRmse) / baselineRmse * 100
+    println("The best model improves the baseline by " + "%1.2f".format(improvement) + "%.")
+
+    val myRatedMovieIds = myRatings.map(_.product).toSet
+    val candidates = sc.parallelize(movies.keys.filter(!myRatedMovieIds.contains(_)).toSeq)
+    val recomendations = bestModel.get
+      .predict(candidates.map((0, _)))
+      .collect()
+      .sortBy(- _.rating)
+      .take(50)
+
+    var i = 1
+    println("Movies recommended:")
+    recomendations.foreach {
+      r => println("%2d".format(i) + ": " + movies(r.product))
+        i += 1
+    }
     // clean up
     sc.stop()
   }

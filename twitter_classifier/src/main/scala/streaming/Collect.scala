@@ -20,10 +20,10 @@ object Collect {
     Logger.getLogger("org.eclipse.jetty.server").setLevel(Level.OFF)
 
     // Configure Twitter credentials
-    val apiKey = ""
-    val apiSecret = ""
-    val accessToken = ""
-    val accessTokenSecret = ""
+    val apiKey = "umhLxAaxpcfQrAksVfwl8rcKw"
+    val apiSecret = "yAD1GZecWpFWGSd0kehGMweToRDNAW1xaGsHzi3bObMagLkyFu"
+    val accessToken = "22887707-Sc0SMMJNd7EggYCXMyq4OfQl5V1ZdCCHSX2UR4BtV"
+    val accessTokenSecret = "SbHsQou18OVzYlFrDUbaBdohJtzwPxCAL6ZCsOw"
     TutorialHelper.configureTwitterCredentials(apiKey, apiSecret, accessToken, accessTokenSecret)
 
     // Create Output Dir
