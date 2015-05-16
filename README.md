@@ -1,10 +1,13 @@
-[第一週投影片](https://dl.dropboxusercontent.com/u/9466203/TW%20Mobile%20Spark.pdf)
+[part1](https://dl.dropboxusercontent.com/u/9466203/Spark%20I.pdf)
 ========
 
-[第二週投影片](https://dl.dropboxusercontent.com/u/9466203/TW%20Mobile%20Spark%20II.pdf)
+[part2](https://dl.dropboxusercontent.com/u/9466203/Spark%20II.pdf)
 ========
 
-[第三週投影片](https://dl.dropboxusercontent.com/u/9466203/MLLIB%20%26%20GraphX.pdf)
+[part3](https://dl.dropboxusercontent.com/u/9466203/MLLIB%20%26%20GraphX.pdf)
+========
+
+[ML Intro](https://dl.dropboxusercontent.com/u/9466203/ML_Intro.pdf)
 ========
 
 MovieLens dataset (medium):
