@@ -2,11 +2,11 @@ import AssemblyKeys._ // put this at the top of the file
 
 name := "Tutorial"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.10.5"
 
 libraryDependencies ++= Seq(
-  "org.apache.spark" %% "spark-streaming" % "1.1.1" % "provided",
-  "org.apache.spark" %% "spark-streaming-twitter" % "1.1.1",
+  "org.apache.spark" %% "spark-streaming" % "1.3.1" % "provided",
+  "org.apache.spark" %% "spark-streaming-twitter" % "1.3.1",
   "com.google.code.gson" % "gson" % "2.3",
   "org.twitter4j" % "twitter4j-core" % "3.0.3"
 )
