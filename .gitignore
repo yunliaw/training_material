@@ -2,7 +2,7 @@
 *.log
 *.idea
 .idea/
-
+checkpoint/
 # Package Files #
 *.war
 *.ear
