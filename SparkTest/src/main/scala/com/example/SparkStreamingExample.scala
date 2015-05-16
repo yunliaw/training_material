@@ -3,9 +3,15 @@ package com.example
 import org.apache.spark._
 import org.apache.spark.streaming._
 import org.apache.spark.streaming.StreamingContext._
+import org.apache.log4j.Logger
+import org.apache.log4j.Level
 
 object SparkStreamingExample {
   def main(args: Array[String]) {
+
+    Logger.getLogger("org.apache.spark").setLevel(Level.WARN)
+    Logger.getLogger("org.eclipse.jetty.server").setLevel(Level.OFF)
+
     val conf = new SparkConf()
       .setAppName("Simple Application")
       .setMaster("local[2]")
@@ -13,7 +19,7 @@ object SparkStreamingExample {
     ssc.checkpoint("./checkpoint")
 
     val updateFunc = (values: Seq[Int], state: Option[Int]) => {
-      val currentCount = values.foldLeft(0)(_ + _)
+      val currentCount = values.sum
       val previousCount = state.getOrElse(0)
       Some(currentCount + previousCount)
     }

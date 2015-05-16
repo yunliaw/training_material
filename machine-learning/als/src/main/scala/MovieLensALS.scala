@@ -50,8 +50,8 @@ object MovieLensALS {
 
     // your code here
     val numRatings = ratings.count()
-    val numUsers = ratings.map(_._2).distinct.count()
-    val numMovies = ratings.map(_._2.product).distinct.count()
+    val numUsers = ratings.map(_._2.user).distinct().count()
+    val numMovies = ratings.map(_._2.product).distinct().count()
     println (s"numRatings: $numRatings")
     println(s"numUsers: $numUsers")
     println(s"numMovies: $numMovies")
@@ -96,16 +96,17 @@ object MovieLensALS {
     bestRank = 12
     bestNumIter = 10
     bestLambda = 0.1
+
     val testRmse = computeRmse(bestModel.get, test, test.count())
     println(s"RMSE (test) = $testRmse for model rank = $bestRank, lambda = $bestLambda, numIter = $bestNumIter")
 
 
 
-    val meanRating = training.union(validation).map(_.rating).mean
-    val baselineRmse =
-      math.sqrt(test.map(x => (meanRating - x.rating) * (meanRating - x.rating)).mean())
-    val improvement =  (baselineRmse - testRmse) / baselineRmse * 100
-    println("The best model improves the baseline by " + "%1.2f".format(improvement) + "%.")
+//    val meanRating = training.union(validation).map(_.rating).mean
+//    val baselineRmse =
+//      math.sqrt(test.map(x => (meanRating - x.rating) * (meanRating - x.rating)).mean())
+//    val improvement =  (baselineRmse - testRmse) / baselineRmse * 100
+//    println("The best model improves the baseline by " + "%1.2f".format(improvement) + "%.")
 
     val myRatedMovieIds = myRatings.map(_.product).toSet
     val candidates = sc.parallelize(movies.keys.filter(!myRatedMovieIds.contains(_)).toSeq)

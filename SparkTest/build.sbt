@@ -11,8 +11,8 @@ test in assembly := {}
 mainClass in assembly := Some("com.example.Main")
 
 libraryDependencies ++= Seq(
-  "org.apache.spark" %% "spark-core" % "1.1.0",
-  "org.apache.spark" %% "spark-sql" % "1.1.0",
-  "org.apache.spark" %% "spark-hive" % "1.1.0",
-  "org.apache.spark" %% "spark-streaming" % "1.1.0",
-  "org.apache.spark" %% "spark-streaming-twitter" % "1.1.0")
+  "org.apache.spark" %% "spark-core" % "1.3.1",
+  "org.apache.spark" %% "spark-sql" % "1.3.1",
+  "org.apache.spark" %% "spark-hive" % "1.3.1",
+  "org.apache.spark" %% "spark-streaming" % "1.3.1",
+  "org.apache.spark" %% "spark-streaming-twitter" % "1.3.1")
